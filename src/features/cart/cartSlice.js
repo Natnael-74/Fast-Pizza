@@ -44,8 +44,6 @@ const CartSlice = createSlice({
         CartSlice.caseReducers.removeFromCart(state, action);
         return;
       }
-      item.quantity--;
-      item.totalPrice = item.quantity * item.unitPrice;
     },
   },
 });
