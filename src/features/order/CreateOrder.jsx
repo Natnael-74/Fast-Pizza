@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { createOrder } from "../../services/apiRestaurant";
 import Button from "../../ui/Button";
 
-// https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
     str,
