@@ -1,51 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap");
 @import "tailwindcss";
 
+:root {
+  --color-bg-base: #efe5d7;
+  --color-bg-elevated: #f7f1e8;
+  --color-surface: #fffdf9;
+  --color-surface-soft: #f4ebde;
+  --color-border: #ddccb5;
+  --color-text-strong: #35261b;
+  --color-text-muted: #6f5a48;
+  --color-accent: #bb824b;
+  --color-accent-deep: #86532c;
+  --color-on-accent: #fff9f3;
+  --color-success: #2f5a44;
+  --color-danger: #9a3d32;
+  --shadow-soft: 0 14px 34px -26px rgba(73, 47, 24, 0.55);
+  --shadow-lift: 0 20px 42px -30px rgba(73, 47, 24, 0.65);
+}
+
 @theme {
-  --font-roboto: "Roboto", sans-serif;
+  --font-sans: "Manrope", "Segoe UI", sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    color: var(--color-text-strong);
+    background:
+      radial-gradient(120% 80% at 5% 0%, #f6efe5 0%, transparent 48%),
+      radial-gradient(90% 70% at 100% 20%, #f2e5d4 0%, transparent 56%),
+      linear-gradient(
+        165deg,
+        var(--color-bg-base) 0%,
+        var(--color-bg-elevated) 100%
+      );
+    font-family: var(--font-sans);
+  }
+
+  #root {
+    min-height: 100dvh;
+    isolation: isolate;
+    position: relative;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    color: var(--color-text-strong);
+    letter-spacing: 0.015em;
+  }
+
+  p {
+    color: var(--color-text-muted);
+  }
+
+  ::selection {
+    background-color: rgba(187, 130, 75, 0.24);
+    color: var(--color-text-strong);
+  }
 }
 
 @layer components {
+  .page-shell {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-10;
+  }
+
+  .surface-panel {
+    @apply rounded-3xl border;
+    border-color: var(--color-border);
+    background: rgba(255, 253, 249, 0.88);
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(5px);
+  }
+
+  .text-link {
+    @apply inline-flex items-center gap-1 text-sm font-semibold tracking-[0.08em] uppercase transition-colors duration-300;
+    color: var(--color-accent-deep);
+  }
+
+  .text-link:hover {
+    color: var(--color-accent);
+  }
+
   .input {
-    @apply rounded-full border border-stone-200 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:ring focus:ring-yellow-400 focus:outline-none md:px-6 md:py-3;
+    @apply w-full rounded-2xl border bg-white/70 px-4 py-3 text-sm transition-all duration-300 placeholder:text-stone-400 focus-visible:outline-none sm:text-base;
+    border-color: var(--color-border);
+    color: var(--color-text-strong);
+  }
+
+  .input:focus-visible {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 4px rgba(187, 130, 75, 0.18);
+  }
+
+  .status-pill {
+    @apply inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold tracking-[0.12em] uppercase;
+  }
+
+  .status-pill--priority {
+    color: #fff7f4;
+    background-color: var(--color-danger);
+    border-color: #8d352b;
+  }
+
+  .status-pill--success {
+    color: #f4fbf7;
+    background-color: var(--color-success);
+    border-color: #274a38;
+  }
+
+  .page-enter {
+    animation: page-enter 450ms ease-out both;
   }
 }
 
-/* https://dev.to/afif/i-made-100-css-loaders-for-your-next-project-4eje */
 .loader {
-  width: 45px;
-  aspect-ratio: 0.75;
-  --c: no-repeat linear-gradient(#251818 0 0);
-  background:
-    var(--c) 0% 50%,
-    var(--c) 50% 50%,
-    var(--c) 100% 50%;
-  background-size: 20% 50%;
-  animation: loading 1s infinite linear;
+  width: 52px;
+  height: 52px;
+  border: 3px solid rgba(134, 83, 44, 0.2);
+  border-top-color: var(--color-accent-deep);
+  border-radius: 9999px;
+  animation: spin 0.9s linear infinite;
+  box-shadow: 0 10px 24px -20px rgba(73, 47, 24, 0.85);
 }
 
-@keyframes loading {
-  20% {
-    background-position:
-      0% 0%,
-      50% 50%,
-      100% 50%;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  40% {
-    background-position:
-      0% 100%,
-      50% 0%,
-      100% 50%;
+}
+
+@keyframes page-enter {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
   }
-  60% {
-    background-position:
-      0% 50%,
-      50% 100%,
-      100% 0%;
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
-  80% {
-    background-position:
-      0% 50%,
-      50% 50%,
-      100% 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .loader {
+    animation: none;
   }
 }
