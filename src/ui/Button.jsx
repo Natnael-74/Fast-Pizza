@@ -2,32 +2,43 @@ import { Link } from "react-router-dom";
 
 function Button({ children, disabled, to, type, onClick }) {
   const base =
-    "inline-block text-sm rounded-full bg-yellow-400 font-semibold uppercase tracking-wide text-stone-800 transition-colors duration-300 hover:bg-yellow-300 focus:bg-yellow-300 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center rounded-full border text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-base)] disabled:pointer-events-none disabled:opacity-50";
 
   const styles = {
-    primary: base + " px-4 py-3 md:px-6 md:py-4",
-    small: base + " px-4 py-2 md:px-5 md:py-2.5 text-xs",
-    round: base + " px-2.5 py-1 md:px-3.5 md:py-2 text-sm",
+    primary:
+      base +
+      " border-[var(--color-accent-deep)] bg-[linear-gradient(140deg,var(--color-accent),var(--color-accent-deep))] px-5 py-3 text-[var(--color-on-accent)] shadow-[0_14px_28px_-18px_rgba(120,78,40,0.9)] hover:-translate-y-0.5 hover:shadow-[0_20px_30px_-18px_rgba(120,78,40,0.85)] active:translate-y-0 md:px-7 md:py-3.5",
+    small:
+      base +
+      " border-[var(--color-accent-deep)] bg-[linear-gradient(140deg,var(--color-accent),var(--color-accent-deep))] px-4 py-2 text-[11px] text-[var(--color-on-accent)] shadow-[0_12px_22px_-20px_rgba(120,78,40,0.85)] hover:-translate-y-0.5",
+    round:
+      base +
+      " h-8 w-8 border-[var(--color-accent-deep)] bg-[linear-gradient(140deg,var(--color-accent),var(--color-accent-deep))] p-0 text-sm text-[var(--color-on-accent)] shadow-[0_12px_20px_-18px_rgba(120,78,40,0.85)] hover:-translate-y-0.5",
     secondary:
-      "inline-block text-sm rounded-full border-2 border-stone-300 font-semibold uppercase tracking-wide text-stone-400 transition-colors duration-300 hover:bg-stone-300 hover:text-stone-800 focus:bg-stone-300 focus:text-stone-800 focus:outline-none focus:ring focus:ring-stone-200 focus:ring-offset-2 disabled:cursor-not-allowed px-4 py-2.5 md:px-6 md:py-3.5",
+      base +
+      " border-[var(--color-border)] bg-white/55 px-4 py-2.5 text-[var(--color-text-strong)] hover:-translate-y-0.5 hover:border-[var(--color-accent)] hover:bg-[var(--color-surface-soft)] md:px-6 md:py-3.5",
+    quiet:
+      base +
+      " border-[var(--color-border)] bg-white/70 px-3 py-2 text-[11px] text-[var(--color-text-strong)] hover:border-[var(--color-accent)] hover:bg-[var(--color-surface-soft)]",
   };
+  const variant = styles[type] ?? styles.primary;
 
   if (to)
     return (
-      <Link to={to} className={styles[type]}>
+      <Link to={to} className={variant}>
         {children}
       </Link>
     );
 
   if (onClick)
     return (
-      <button onClick={onClick} disabled={disabled} className={styles[type]}>
+      <button onClick={onClick} disabled={disabled} className={variant}>
         {children}
       </button>
     );
 
   return (
-    <button disabled={disabled} className={styles[type]}>
+    <button disabled={disabled} className={variant}>
       {children}
     </button>
   );
