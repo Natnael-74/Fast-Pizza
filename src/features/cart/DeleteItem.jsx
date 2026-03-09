@@ -6,7 +6,7 @@ function DeleteItem({ pizzaId }) {
   const dispatch = useDispatch();
 
   return (
-    <Button type="small" onClick={() => dispatch(removeFromCart(pizzaId))}>
+    <Button type="quiet" onClick={() => dispatch(removeFromCart(pizzaId))}>
       Delete
     </Button>
   );
