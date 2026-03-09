@@ -26,33 +26,40 @@ function MenuItem({ pizza }) {
   }
 
   return (
-    <li className="flex gap-4 py-2">
-      <img
-        src={imageUrl}
-        alt={name}
-        className={`h-24 ${soldOut ? "opacity-70 grayscale" : ""}`}
-      />
+    <li className="group flex gap-4 p-4 transition-colors duration-300 hover:bg-[var(--color-surface-soft)]/55 sm:gap-6 sm:p-5">
+      <div className="overflow-hidden rounded-2xl border border-[var(--color-border)]">
+        <img
+          src={imageUrl}
+          alt={name}
+          className={`h-24 w-24 object-cover transition-transform duration-500 sm:h-28 sm:w-28 ${
+            soldOut ? "opacity-60 grayscale" : "group-hover:scale-105"
+          }`}
+        />
+      </div>
       <div className="flex grow flex-col pt-0.5">
-        <p className="font-medium">{name}</p>
-        <p className="text-sm text-stone-500 capitalize italic">
-          {ingredients.join(", ")}
+        <p className="text-base font-semibold text-[var(--color-text-strong)] sm:text-lg">
+          {name}
         </p>
-        <div className="mt-auto flex items-center justify-between">
+        <p className="mt-1 text-sm capitalize italic">{ingredients.join(", ")}</p>
+
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
           {!soldOut ? (
-            <p className="text-sm">{formatCurrency(unitPrice)}</p>
+            <p className="text-sm font-semibold tracking-wide text-[var(--color-accent-deep)] uppercase">
+              {formatCurrency(unitPrice)}
+            </p>
           ) : (
-            <p className="text-sm font-medium text-stone-500 uppercase">
+            <p className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface-soft)] px-3 py-1 text-xs font-semibold tracking-[0.08em] uppercase">
               Sold out
             </p>
           )}
 
           {currentPizzaQuantity > 0 ? (
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-3 sm:gap-5">
               <UpdateItemQuantity
                 pizzaId={id}
                 currentQuantity={currentPizzaQuantity}
               />
-              {currentPizzaQuantity > 0 ? <DeleteItem pizzaId={id} /> : null}
+              <DeleteItem pizzaId={id} />
             </div>
           ) : null}
 
