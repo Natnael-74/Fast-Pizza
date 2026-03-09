@@ -4,14 +4,16 @@ function OrderItem({ item, isLoadingIngredients, ingredients }) {
   const { quantity, name, totalPrice } = item;
 
   return (
-    <li className="space-y-1 py-3">
-      <div className="flex items-center justify-between gap-4 text-sm">
-        <p>
-          <span className="font-bold">{quantity}&times;</span> {name}
+    <li className="space-y-1 py-4">
+      <div className="flex items-center justify-between gap-4">
+        <p className="text-sm font-medium text-[var(--color-text-strong)] sm:text-base">
+          <span className="font-semibold">{quantity}&times;</span> {name}
         </p>
-        <p className="font-bold">{formatCurrency(totalPrice)}</p>
+        <p className="text-sm font-semibold text-[var(--color-accent-deep)] sm:text-base">
+          {formatCurrency(totalPrice)}
+        </p>
       </div>
-      <p className="mt-1 text-xs text-gray-500 capitalize italic">
+      <p className="mt-1 text-xs capitalize italic sm:text-sm">
         {isLoadingIngredients
           ? "Loading ingredients..."
           : ingredients?.join(", ")}
