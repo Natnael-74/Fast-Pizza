@@ -12,10 +12,9 @@ function UpdateOrder() {
 
 export default UpdateOrder;
 
-export async function action({ request }) {
-  const formData = await request.formData();
-  const orderId = formData.get("orderId");
-  const order = { orderId, priority: true };
-  await updateOrder(order);
+export async function action({ request, params }) {
+  const orderId = params.orderId;
+  const order = { priority: true };
+  await updateOrder(orderId, order);
   return null;
 }
