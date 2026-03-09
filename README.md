@@ -31,7 +31,7 @@ npm run dev
 
 ## Project Structure
 
-```
+```bash
 
 src/
 ├── features/ # Feature modules (cart, menu, order, user)
